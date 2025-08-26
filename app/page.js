@@ -3,6 +3,8 @@
 import styled from 'styled-components';
 import Hero from '../components/Hero';
 import ProductCarousel from '../components/ProductCarousel';
+import AboutSection from '../components/AboutSection';
+
 
 const Main = styled.main`
   // text-align: center;
@@ -14,6 +16,7 @@ export default function HomePage() {
       <Main>
         <Hero />
         <ProductCarousel />
+        <AboutSection />
       </Main>
     </>
   );

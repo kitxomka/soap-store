@@ -4,6 +4,7 @@ import { useState } from "react";
 import styled from "styled-components";
 import { ShoppingBag, Menu, X } from "lucide-react";
 import { usePathname } from "next/navigation";
+import logo from "../public/logo.png";
 
 
 const Nav = styled.nav`
@@ -32,65 +33,14 @@ const LogoContainer = styled.div`
 `;
 
 const LogoIcon = styled.div`
-  width: 2.5rem;
-  height: 2.5rem;
-  background: ${({ theme }) => theme.colors.jetBlack};
-  border-radius: 0.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-
-  &::before {
-    content: "S";
-    color: ${({ theme }) => theme.colors.white};
-    font-weight: bold;
-    font-size: 1.25rem;
-    font-family: ${({ theme }) => theme.fonts.primary};
-  }
-
-  @media (min-width: 768px) {
-    width: 3rem;
-    height: 3rem;
-
-    &::before {
-      font-size: 1.5rem;
-    }
-  }
+  width: 9rem;
+  height: 10rem;
+  background-image: url(${logo.src});
+  background-size: contain;
+  background-repeat: no-repeat;
+  margin-top: 6em;
 `;
 
-const LogoText = styled.div`
-  display: flex;
-  flex-direction: column;
-  line-height: 1;
-`;
-
-const LogoTitle = styled.h1`
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: ${({ theme }) => theme.colors.jetBlack};
-  margin: 0;
-  font-family: ${({ theme }) => theme.fonts.primary};
-  letter-spacing: -0.02em;
-
-  @media (min-width: 768px) {
-    font-size: 1.5rem;
-  }
-`;
-
-const LogoSubtitle = styled.span`
-  font-size: 0.75rem;
-  color: ${({ theme }) => theme.colors.taupeGrey};
-  font-weight: 400;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  margin-top: 0.3em;
-
-  @media (min-width: 768px) {
-    font-size: 0.875rem;
-  }
-`;
 
 const NavLinks = styled.div`
   display: none;
@@ -166,6 +116,8 @@ const MobileMenu = styled.div`
   gap: 1rem;
 `;
 
+
+
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [cartCount] = useState(2);
@@ -178,15 +130,11 @@ export default function Header() {
         <NavContainer>
           <LogoContainer>
             <LogoIcon />
-            <LogoText>
-              <LogoTitle>PureSoap</LogoTitle>
-              <LogoSubtitle>Natural Beauty</LogoSubtitle>
-            </LogoText>
           </LogoContainer>
 
           <NavLinks>
             <NavLink href="/" $active={pathname === "/"}>Home</NavLink>
-            <NavLink href="/about" $active={pathname === "/about"}>About</NavLink>
+            <NavLink href="#about" $active={pathname === "/#about"}>About</NavLink>
             <NavLink href="/products" $active={pathname === "/products"}>Products</NavLink>
             <NavLink href="/contact" $active={pathname === "/contact"}>Contact</NavLink>
           </NavLinks>
@@ -210,8 +158,8 @@ export default function Header() {
       {isMenuOpen && (
         <MobileMenu>
           <NavLink href="/">Home</NavLink>
-          <NavLink href="/about">About</NavLink>
-          <NavLink href="/products">Products</NavLink>
+          <NavLink href="#about">About</NavLink>
+          <NavLink href="#products">Products</NavLink>
           <NavLink href="/contact">Contact</NavLink>
         </MobileMenu>
       )}

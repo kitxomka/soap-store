@@ -1,20 +1,15 @@
 'use client';
 
 import styled from 'styled-components';
-import { FaRegHeart } from 'react-icons/fa';
 import allProducts from '../lib/products';
+import { Container, Button, Card } from '../styles/theme.js';
 
-const products = allProducts.slice(0, 5); // Show only 5 products
+const products = allProducts.slice(0, 4); // Show only 4 products
 
 const Section = styled.section`
   padding: 4rem 1rem;
   background-color: ${({ theme }) => theme.colors.white};
   text-align: center;
-`;
-
-const Container = styled.div`
-  max-width: 1200px;
-  margin: 0 auto;
 `;
 
 const Title = styled.h2`
@@ -34,18 +29,15 @@ const Grid = styled.div`
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 2rem;
   margin-bottom: 2rem;
+
+  /* this makes all cards in the same row equal height */
+  align-items: stretch;
 `;
 
-const Card = styled.div`
-  background: ${({ theme }) => theme.colors.white};
-  border-radius: 1rem;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-  padding: 1rem;
-  position: relative;
+const StyledCard = styled(Card)`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 460px; /* Fixed height */
 `;
 
 const ImageWrapper = styled.div`
@@ -73,15 +65,12 @@ const Tag = styled.span`
   border-radius: 999px;
 `;
 
-const Heart = styled.button`
-  position: absolute;
-  top: 0.5rem;
-  left: 0.5rem;
-  background: rgba(255, 255, 255, 0.7);
-  border: none;
-  padding: 0.3rem;
-  border-radius: 999px;
-  cursor: pointer;
+const CardContent = styled.div`
+  flex: 1; 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
 `;
 
 const TitleText = styled.h3`
@@ -95,6 +84,7 @@ const Description = styled.p`
   font-size: 0.875rem;
   color: ${({ theme }) => theme.colors.taupeGrey};
   margin: 0.25rem 0;
+  flex-grow: 1; /* pushes rating/price down if text is short */
 `;
 
 const Rating = styled.div`
@@ -108,69 +98,39 @@ const Price = styled.p`
   margin: 0.5rem 0;
 `;
 
-const AddToCart = styled.button`
-  background: ${({ theme }) => theme.colors.roseDust};
-  color: ${({ theme }) => theme.colors.white};
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 0.5rem;
-  font-weight: 600;
-  cursor: pointer;
-  width: 100%;
-`;
-
-const ViewAll = styled.a`
-  display: inline-block;
-  color: ${({ theme }) => theme.colors.roseDust};
-  font-weight: bold;
-  font-size: 0.875rem;
-  border: 2px solid ${({ theme }) => theme.colors.roseDust};
-  padding: 0.5rem 1rem;
-  border-radius: 0.5rem;
-  background: transparent;
-  text-decoration: none;
-  transition: background 0.3s, color 0.3s;
-  cursor: pointer;
-
-  &:hover {
-    background: ${({ theme }) => theme.colors.roseDust};
-    color: ${({ theme }) => theme.colors.white};
-  }
-`;
-
 export default function ProductCarousel() {
-    return (
-        <Section>
-            <Container>
-                <Title>Featured Soaps</Title>
-                <Subtitle>
-                    Discover our most popular handcrafted soaps, each made with premium natural ingredients.
-                </Subtitle>
+  return (
+    <Section id="products">
+      <Container>
+        <Title>Featured Soaps</Title>
+        <Subtitle>
+          Discover our most popular handcrafted soaps, each made with premium natural ingredients.
+        </Subtitle>
 
-                <Grid>
-                    {products.map((product, index) => (
-                        <Card key={index}>
-                            <ImageWrapper>
-                                <ProductImage src={product.image} alt={product.title} />
-                                <Tag>{product.tag}</Tag>
-                                <Heart>
-                                    <FaRegHeart size={14} color="#EBBAA9" />
-                                </Heart>
-                            </ImageWrapper>
-                            <TitleText>{product.title}</TitleText>
-                            <Description>{product.desc}</Description>
-                            <Rating>
-                                {'★'.repeat(product.rating)}
-                                {'☆'.repeat(5 - product.rating)}
-                            </Rating>
-                            <Price>{product.price}</Price>
-                            <AddToCart>Add to Cart</AddToCart>
-                        </Card>
-                    ))}
-                </Grid>
+        <Grid>
+          {products.map((product, index) => (
+            <StyledCard key={index}>
+              <ImageWrapper>
+                <ProductImage src={product.image} alt={product.title} />
+                <Tag>{product.tag}</Tag>
+              </ImageWrapper>
 
-                <ViewAll href="/products">View All Products</ViewAll>
-            </Container>
-        </Section>
-    );
+              <CardContent>
+                <TitleText>{product.title}</TitleText>
+                <Description>{product.desc}</Description>
+                <Rating>
+                  {'★'.repeat(product.rating)}
+                  {'☆'.repeat(5 - product.rating)}
+                </Rating>
+                <Price>{product.price}</Price>
+              </CardContent>
+
+              <Button variant="secondary">Add to Cart</Button>
+            </StyledCard>
+          ))}
+        </Grid>
+        <Button as="a" variant="secondary" href="/products">View All Products</Button>
+      </Container>
+    </Section>
+  );
 }

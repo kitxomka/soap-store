@@ -2,6 +2,12 @@
 
 import styled from 'styled-components';
 import { FaFacebookF, FaInstagram } from 'react-icons/fa';
+import { Parisienne } from "next/font/google";
+
+const parisienne = Parisienne({
+  subsets: ["latin"],
+  weight: "400",
+});
 
 const FooterSection = styled.footer`
   background-color: ${({ theme }) => theme.colors.jetBlack};
@@ -71,7 +77,7 @@ export default function Footer() {
     <FooterSection>
       <FooterContainer>
         <FooterContent>
-          <FooterTitle>PureSoap</FooterTitle>
+          <FooterTitle className={`${parisienne.className} text-4xl`}>Eva & Bloom</FooterTitle>
           <SocialLinks>
             <SocialLink href="#" aria-label="Facebook">
               <FaFacebookF size={20} />

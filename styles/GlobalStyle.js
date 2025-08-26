@@ -7,7 +7,9 @@ const GlobalStyle = createGlobalStyle`
     padding: 0;
     font-family: ${({ theme }) => theme.fonts.primary};
     background-color: ${({ theme }) => theme.colors.white};
+    scroll-behavior: smooth;
   }
 `;
+
 
 export default GlobalStyle;
